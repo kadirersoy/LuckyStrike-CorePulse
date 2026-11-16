@@ -525,16 +525,26 @@
             onmousedown="if(event.button === 0 && !event.target.closest('button, input, select, a, .no-drag')) { window.chrome?.webview?.postMessage({ action: 'drag' }); }"
             ondblclick="if(!event.target.closest('button, input, select, a, .no-drag')) { window.chrome?.webview?.postMessage({ action: 'maximize' }); }"
             class="flex flex-col md:flex-row md:items-center justify-between pb-2.5 pt-1.5 border-b border-slate-800 gap-2.5 mb-2 cursor-default">
-      <!-- Sol: Marka ve Versiyon -->
+      <!-- Sol: Marka ve Başlık -->
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-950/50 border border-cyan-400/30">
-          <div class="w-4 h-4 rounded-full border-2 border-white flex items-center justify-center animate-pulse">
-            <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-          </div>
+        <!-- PolyHeart 3D Kristal Kalp & Nabız Logosu -->
+        <div class="w-9 h-9 rounded-xl bg-[#120f26] flex items-center justify-center shadow-lg shadow-purple-950/60 border border-indigo-500/40 overflow-hidden flex-shrink-0">
+          <svg viewBox="0 0 100 100" class="w-full h-full p-0.5">
+            <!-- 3D Poly Heart Facets -->
+            <polygon points="50,28 32,16 18,32 36,46 50,38" fill="#4338ca" opacity="0.85" stroke="#818cf8" stroke-width="1"/>
+            <polygon points="50,28 68,16 82,32 64,46 50,38" fill="#6366f1" opacity="0.9" stroke="#a5b4fc" stroke-width="1"/>
+            <polygon points="18,32 16,52 36,66 36,46" fill="#312e81" opacity="0.8" stroke="#6366f1" stroke-width="1"/>
+            <polygon points="82,32 84,52 64,66 64,46" fill="#4f46e5" opacity="0.85" stroke="#818cf8" stroke-width="1"/>
+            <polygon points="50,38 36,46 50,66 64,46" fill="#7c3aed" opacity="0.95" stroke="#c084fc" stroke-width="1"/>
+            <polygon points="36,66 50,66 50,84 26,62" fill="#2e1065" opacity="0.9" stroke="#6366f1" stroke-width="1"/>
+            <polygon points="64,66 50,66 50,84 74,62" fill="#581c87" opacity="0.95" stroke="#a855f7" stroke-width="1"/>
+            <!-- İnce, Keskin Nabız Çizgisi -->
+            <path d="M6,52 L26,52 L31,45 L36,58 L43,26 L51,74 L58,38 L64,56 L70,52 L94,52" fill="none" stroke="#00f2fe" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 5px #00f2fe);"/>
+          </svg>
         </div>
         <div>
           <h1 class="text-base font-bold tracking-wide text-white leading-none">CorePulse</h1>
-          <span class="text-[11px] text-slate-400 font-mono mt-0.5 block">Hardware Monitoring v1.0.1</span>
+          <span class="text-[11px] text-slate-400 font-mono mt-0.5 block">Hardware Monitoring</span>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 # ⚡ CorePulse - Modern Donanım & Canlı Telemetri İzleme Merkezi
 
-[![Release](https://img.shields.io/github/v/release/kadirersoy/CorePulse?color=00f2fe&style=flat-square)](https://github.com/kadirersoy/CorePulse/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-blue?style=flat-square)](https://github.com/kadirersoy/CorePulse)
+[![Release](https://img.shields.io/github/v/release/kadirersoy/LuckyStrike-CorePulse?color=00f2fe&style=flat-square)](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-blue?style=flat-square)](https://github.com/kadirersoy/LuckyStrike-CorePulse)
 [![Framework](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square)](https://dotnet.microsoft.com/)
 [![UI](https://img.shields.io/badge/UI-WebView2%20%2B%20TailwindCSS-38bdf8?style=flat-square)](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
@@ -50,7 +50,7 @@ Sisteminizde keşfedilen tüm sensör havuzunu görüntüleyip kartlardaki slotl
 
 ## 📥 İndirme & Kurulum
 
-En son kararlı sürümü projenin **[Releases](https://github.com/kadirersoy/CorePulse/releases/tag/v1.0.1)** sayfasından indirebilirsiniz:
+En son kararlı sürümü projenin **[Releases](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases/tag/v1.0.1)** sayfasından indirebilirsiniz:
 
 | Paket Türü | Dosya | Açıklama |
 | :--- | :--- | :--- |
