@@ -65,13 +65,13 @@
 
 ## 📥 İndirme & Kurulum / Download & Installation
 
-En son sürümü projenin **[GitHub Releases](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases/tag/v1.0.0)** sayfasından indirebilirsiniz:  
-You can download the latest release from the official **[GitHub Releases](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases/tag/v1.0.0)** page:
+En son sürümü projenin **[GitHub Releases](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases/latest)** sayfasından indirebilirsiniz:  
+You can download the latest release from the official **[GitHub Releases](https://github.com/kadirersoy/LuckyStrike-CorePulse/releases/latest)** page:
 
 | Paket / Package | Dosya / File | Açıklama / Description |
 | :--- | :--- | :--- |
-| **Windows Kurulum Paketi** / Setup MSI | `CorePulse_v1.0.0_Setup.msi` | Başlat menüsü ve masaüstü kısayolları ile tam sistem kurulumu.<br>Full installation with Start Menu and desktop shortcuts. |
-| **Taşınabilir Sürüm** / Portable ZIP | `CorePulse_v1.0.0_Portable.zip` | Kurulum gerektirmeden ZIP'ten çıkarıp doğrudan çalıştırılabilir.<br>Self-contained standalone archive, runs without installation. |
+| **Windows Kurulum Paketi** / Setup MSI | `CorePulse_v1.0.1_Setup.msi` | Başlat menüsü ve masaüstü kısayolları ile tam sistem kurulumu.<br>Full installation with Start Menu and desktop shortcuts. |
+| **Taşınabilir Sürüm** / Portable ZIP | `CorePulse_v1.0.1_Portable.zip` | Kurulum gerektirmeden ZIP'ten çıkarıp doğrudan çalıştırılabilir.<br>Self-contained standalone archive, runs without installation. |
 
 > [!TIP]
 > 🇹🇷 **Yönetici Yetkisi:** Anakart üzerindeki fan devirleri (RPM), pompa hızı ve VRM/Hotspot sıcaklıkları gibi donanım düzeyindeki (Ring 0) sensörlerin okunabilmesi için uygulamanın **Yönetici Olarak Çalıştır** (Run as Administrator) yetkisiyle açılması önerilir.  

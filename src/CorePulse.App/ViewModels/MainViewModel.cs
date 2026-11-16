@@ -227,17 +227,14 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void CleanMemory()
     {
-        long freed = MemoryOptimizer.OptimizeMemory();
-        double freedMb = freed / (1024.0 * 1024.0);
-        StatusMessage = freedMb > 0 
-            ? $"RAM Önbelleği Temizlendi: ~{freedMb:F1} MB bellek boşaltıldı!"
-            : "RAM Önbelleği optimize edildi ve standby listesi temizlendi.";
+        var res = MemoryOptimizer.PurgeStandbyMemory();
+        StatusMessage = res.Message;
 
         MessageBox.Show(
-            "Windows Bellek Önbelleği (Standby List) başarıyla temizlendi!\nOyun ve ağır uygulamalar için RAM serbest bırakıldı.",
+            res.Message,
             "Bellek Temizleyici",
             MessageBoxButton.OK,
-            MessageBoxImage.Information);
+            res.Success ? MessageBoxImage.Information : MessageBoxImage.Warning);
     }
 
     private void SilenceAlert()

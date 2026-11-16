@@ -127,8 +127,8 @@ public partial class MainWindow : Window
             var itemRam = new MenuItem { Header = "⚡ Standby Bellek Temizle" };
             itemRam.Click += (s, e) =>
             {
-                var freed = MemoryOptimizer.OptimizeMemory();
-                SendToastToWeb($"Standby bellek temizlendi ({freed / (1024 * 1024)} MB boşaltıldı) ✓");
+                var res = MemoryOptimizer.PurgeStandbyMemory();
+                SendToastToWeb(res.Message);
             };
 
             var itemExit = new MenuItem { Header = "✕ Çıkış" };
@@ -434,8 +434,8 @@ public partial class MainWindow : Window
                         });
                         break;
                     case "clearStandbyRam":
-                        var freed = MemoryOptimizer.OptimizeMemory();
-                        SendToastToWeb($"Standby bellek temizlendi ({freed / (1024 * 1024)} MB boşaltıldı) ✓");
+                        var res = MemoryOptimizer.PurgeStandbyMemory();
+                        SendToastToWeb(res.Message);
                         break;
                     case "ready":
                         _isWebViewReady = true;
