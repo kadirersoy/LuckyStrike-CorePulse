@@ -4,6 +4,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-blue?style=flat-square)](https://github.com/kadirersoy/CorePulse)
 [![Framework](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square)](https://dotnet.microsoft.com/)
 [![UI](https://img.shields.io/badge/UI-WebView2%20%2B%20TailwindCSS-38bdf8?style=flat-square)](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
 MSI Center, ASUS Armoury Crate veya Gigabyte Control Center gibi şişkin (bloatware) ve üretici bağımlı yazılımlara modern, hafif, yüksek performanslı ve modüler açık kaynak bir alternatiftir.
 
