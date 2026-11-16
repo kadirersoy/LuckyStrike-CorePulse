@@ -1,4 +1,4 @@
-name: Build & Release CorePulse
+name: CorePulse CI/CD Build Job
 
 on:
   push:
