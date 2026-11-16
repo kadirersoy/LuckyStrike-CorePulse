@@ -2541,20 +2541,20 @@
         ? Math.round(Number(effectivePct))
         : null;
 
-      if (sensorId === 'cpu_usage') {
-        const clk = findSensorById('cpu_clock');
-        const clkText = (clk && clk.value && clk.value !== '--') ? `${clk.value} MHz` : `%${strVal}`;
-        return { pctText: `%${strVal}`, numText: clkText, hasDual: true };
-      }
-      if (sensorId === 'gpu_usage') {
-        const clk = findSensorById('gpu_clock');
-        const clkText = (clk && clk.value && clk.value !== '--') ? `${clk.value} MHz` : `%${strVal}`;
-        return { pctText: `%${strVal}`, numText: clkText, hasDual: true };
+      if (sensorId === 'cpu_usage' || sensorId === 'gpu_usage') {
+        const isGpu = sensorId === 'gpu_usage';
+        const clk = findSensorById(isGpu ? 'gpu_clock' : 'cpu_clock');
+        const numVal = parseFloat(strVal);
+        const safeVal = !isNaN(numVal) ? Math.min(100, Math.max(0, Math.round(numVal))) : strVal;
+        const clkText = (clk && clk.value && clk.value !== '--') ? `${clk.value} MHz` : `%${safeVal}`;
+        return { pctText: `%${safeVal}`, numText: clkText, hasDual: true };
       }
       if (sensorId === 'ram_usage') {
         const used = findSensorById('ram_used');
-        const usedText = (used && used.value && used.value !== '--') ? `${used.value} GB` : `%${strVal}`;
-        return { pctText: `%${strVal}`, numText: usedText, hasDual: true };
+        const numVal = parseFloat(strVal);
+        const safeVal = !isNaN(numVal) ? Math.min(100, Math.max(0, Math.round(numVal))) : strVal;
+        const usedText = (used && used.value && used.value !== '--') ? `${used.value} GB` : `%${safeVal}`;
+        return { pctText: `%${safeVal}`, numText: usedText, hasDual: true };
       }
       if (sensorId === 'nvme1_usage' || sensorId === 'nvme2_usage') {
         const freeId = sensorId === 'nvme1_usage' ? 'nvme1_free' : 'nvme2_free';
@@ -4098,7 +4098,9 @@
         } else if (unit === '°C') {
           fontMono.innerHTML = `${val}<span class="text-[9px] text-slate-400 ml-0.5">°C</span>`;
         } else if (unit === '%') {
-          fontMono.innerText = `%${val}`;
+          const numVal = parseFloat(val);
+          const safeVal = !isNaN(numVal) ? Math.min(100, Math.max(0, Math.round(numVal))) : val;
+          fontMono.innerText = `%${safeVal}`;
         } else if (unit === 'RPM') {
           // Fan/Pompa RPM: Max değer tanımlıysa (%...) göster, tanımsızsa sadece RPM göster
           fontMono.innerText = effPct !== null

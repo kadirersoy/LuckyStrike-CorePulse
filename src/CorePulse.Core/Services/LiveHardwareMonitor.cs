@@ -314,6 +314,7 @@ public class LiveHardwareMonitor : IDisposable
                         if (!string.IsNullOrWhiteSpace(hw.Name))
                             _gpuName = hw.Name;
 
+                        bool hasHardwareGpuCoreLoad = false;
                         foreach (var s in allSensors)
                         {
                             if (!s.Value.HasValue) continue;
@@ -334,11 +335,16 @@ public class LiveHardwareMonitor : IDisposable
                             }
                             else if (s.SensorType == SensorType.Load)
                             {
-                                // Match specifically "GPU Core" so "GPU Memory" load does not overwrite it!
-                                if (s.Name.Equals("GPU Core", StringComparison.OrdinalIgnoreCase) ||
-                                    s.Name.Equals("D3D 3D", StringComparison.OrdinalIgnoreCase))
+                                // 1. Birincil: Donanım sürücüsünün gerçek çekirdek yükü (NVIDIA NVAPI / AMD ADL)
+                                if (s.Name.Equals("GPU Core", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    gpuUsage = val;
+                                    gpuUsage = Math.Clamp(val, 0f, 100f);
+                                    hasHardwareGpuCoreLoad = true;
+                                }
+                                // 2. İkincil / Yedek: Sadece gerçek GPU Core sensörü yoksa Windows D3D motor sayacını kullan (100 ile sınırla)
+                                else if (!hasHardwareGpuCoreLoad && s.Name.Equals("D3D 3D", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    gpuUsage = Math.Clamp(val, 0f, 100f);
                                 }
                             }
                             else if (s.SensorType == SensorType.Clock)
@@ -570,16 +576,18 @@ public class LiveHardwareMonitor : IDisposable
 
             // ==================== POPULATE TELEMETRY DICTIONARY ====================
             // 1. CPU
+            float safeCpuUsage = Math.Clamp(cpuUsage, 0f, 100f);
             dict["cpu_temp"] = new SensorWebValue { Value = Math.Round(cpuTemp).ToString(), Unit = "°C", Percent = Math.Clamp(cpuTemp, 0, 100) };
-            dict["cpu_usage"] = new SensorWebValue { Value = Math.Round(cpuUsage).ToString(), Unit = "%", Percent = Math.Clamp(cpuUsage, 0, 100) };
+            dict["cpu_usage"] = new SensorWebValue { Value = Math.Round(safeCpuUsage).ToString(), Unit = "%", Percent = safeCpuUsage };
             dict["cpu_clock"] = new SensorWebValue { Value = Math.Round(cpuClock).ToString(), Unit = "MHz", Percent = Math.Clamp(cpuClock / 5450f * 100, 0, 100) };
-            dict["cpu_vcache"] = new SensorWebValue { Value = "96 MB", Unit = "3D V-Cache", Percent = Math.Clamp(cpuUsage + 15f, 10, 100) };
+            dict["cpu_vcache"] = new SensorWebValue { Value = "96 MB", Unit = "3D V-Cache", Percent = Math.Clamp(safeCpuUsage + 15f, 10, 100) };
             dict["cpu_hot_core"] = new SensorWebValue { Value = Math.Round(cpuHotCore).ToString(), Unit = "°C", Percent = Math.Clamp(cpuHotCore, 0, 100) };
             dict["cpu_power"] = new SensorWebValue { Value = Math.Round(cpuPower, 1).ToString(), Unit = "W", Percent = Math.Clamp(cpuPower / 162f * 100, 0, 100) };
 
             // 2. GPU
+            float safeGpuUsage = Math.Clamp(gpuUsage, 0f, 100f);
             dict["gpu_temp"] = new SensorWebValue { Value = Math.Round(gpuTemp).ToString(), Unit = "°C", Percent = Math.Clamp(gpuTemp, 0, 100) };
-            dict["gpu_usage"] = new SensorWebValue { Value = Math.Round(gpuUsage).ToString(), Unit = "%", Percent = Math.Clamp(gpuUsage, 0, 100) };
+            dict["gpu_usage"] = new SensorWebValue { Value = Math.Round(safeGpuUsage).ToString(), Unit = "%", Percent = safeGpuUsage };
             dict["gpu_clock"] = new SensorWebValue { Value = Math.Round(gpuClock).ToString(), Unit = "MHz", Percent = Math.Clamp(gpuClock / 3100f * 100, 0, 100) };
             dict["gpu_vram_used"] = new SensorWebValue { Value = $"{Math.Round(gpuVram, 1)} / {Math.Round(gpuVramTotal)}", Unit = "GB", Percent = Math.Clamp(gpuVram / gpuVramTotal * 100, 0, 100) };
             dict["gpu_hotspot"] = new SensorWebValue { Value = Math.Round(gpuHotspot).ToString(), Unit = "°C", Percent = Math.Clamp(gpuHotspot, 0, 100) };
@@ -588,8 +596,9 @@ public class LiveHardwareMonitor : IDisposable
 
             // 3. RAM
             int ramSpeedVal = _detectedRamSpeedMts > 0 ? _detectedRamSpeedMts : 6000;
+            float safeRamLoad = Math.Clamp(ramLoad, 0f, 100f);
             dict["ram_temp"] = new SensorWebValue { Value = Math.Round(ramTemp).ToString(), Unit = "°C", Percent = Math.Clamp(ramTemp, 0, 100) };
-            dict["ram_usage"] = new SensorWebValue { Value = Math.Round(ramLoad).ToString(), Unit = "%", Percent = Math.Clamp(ramLoad, 0, 100) };
+            dict["ram_usage"] = new SensorWebValue { Value = Math.Round(safeRamLoad).ToString(), Unit = "%", Percent = safeRamLoad };
             dict["ram_used"] = new SensorWebValue { Value = Math.Round(ramUsedGb, 1).ToString(), Unit = "GB", Percent = Math.Clamp(ramUsedGb / ramTotalGb * 100, 0, 100) };
             dict["ram_free"] = new SensorWebValue { Value = Math.Round(ramFreeGb, 1).ToString(), Unit = "GB", Percent = Math.Clamp(ramFreeGb / ramTotalGb * 100, 0, 100) };
             dict["ram_freq"] = new SensorWebValue { Value = ramSpeedVal.ToString(), Unit = "MT/s", Percent = 75 };

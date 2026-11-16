@@ -1,7 +1,10 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Package Name="CorePulse" Manufacturer="LuckyStrike" Version="$(var.Version)" UpgradeCode="78A5F231-9F02-4A63-8E5A-7C38B124F65D">
-    <MajorUpgrade DowngradeErrorMessage="Daha yeni bir CorePulse sÃ¼rÃ¼mÃ¼ zaten yÃ¼klÃ¼." />
+  <Package Name="CorePulse" Manufacturer="LuckyStrike" Version="$(var.Version)" UpgradeCode="78A5F231-9F02-4A63-8E5A-7C38B124F65D" Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="Daha yeni bir CorePulse sürümü zaten yüklü." />
     <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="AppIcon" SourceFile="src\CorePulse.App\Assets\app.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
 
     <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="INSTALLFOLDER" Name="CorePulse" />
@@ -11,17 +14,31 @@
       <Component Id="ApplicationShortcut" Guid="B4D7203E-C189-4FA2-B583-6C78F23A1054">
         <Shortcut Id="ApplicationStartMenuShortcut"
                   Name="CorePulse"
-                  Description="CorePulse - Windows DonanÄ±m Ä°zleme Merkezi"
+                  Description="CorePulse - Windows Donanım İzleme Merkezi"
                   Target="[INSTALLFOLDER]CorePulse.exe"
-                  WorkingDirectory="INSTALLFOLDER" />
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon" />
         <RemoveFolder Id="CleanUpShortCut" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\LuckyStrike\CorePulse" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="ApplicationDesktopShortcut" Guid="D4E5F6A7-B8C9-0123-DEFA-234567890123">
+        <Shortcut Id="DesktopShortcut"
+                  Name="CorePulse"
+                  Description="CorePulse - Windows Donanım İzleme Merkezi"
+                  Target="[INSTALLFOLDER]CorePulse.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon" />
+        <RegistryValue Root="HKCU" Key="Software\LuckyStrike\CorePulse" Name="desktopShortcut" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </StandardDirectory>
 
     <Feature Id="Main">
       <ComponentGroupRef Id="CorePulseComponents" />
       <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationDesktopShortcut" />
     </Feature>
 
     <ComponentGroup Id="CorePulseComponents" Directory="INSTALLFOLDER">
