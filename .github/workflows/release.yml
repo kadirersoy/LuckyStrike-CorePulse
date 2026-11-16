@@ -38,7 +38,7 @@ jobs:
       - name: Build MSI Installer and Portable ZIP
         shell: powershell
         run: |
-          $rawVer = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME.TrimStart('v') } else { "1.0.1" }
+          $rawVer = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME.TrimStart('v') } else { "1.0.0" }
           $wixVer = if ($rawVer -match '^\d+\.\d+\.\d+$') { "$rawVer.0" } else { $rawVer }
 
           $zipName = "CorePulse_v${rawVer}_Portable.zip"
@@ -57,9 +57,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: CorePulse ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
           files: |
             CorePulse_*_Portable.zip
             CorePulse_*_Setup.msi
-          generate_release_notes: true
+          generate_release_notes: false
           draft: false
           prerelease: false
