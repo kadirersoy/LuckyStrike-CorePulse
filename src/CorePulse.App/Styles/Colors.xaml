@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Backgrounds -->
+    <SolidColorBrush x:Key="AppBackground" Color="#0B0F19"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#121826"/>
+    <SolidColorBrush x:Key="CardHoverBackground" Color="#161E30"/>
+    <SolidColorBrush x:Key="CardElevatedBackground" Color="#1A2236"/>
+    <SolidColorBrush x:Key="ModalBackground" Color="#111625"/>
+    <SolidColorBrush x:Key="InputBackground" Color="#1E293B"/>
+
+    <!-- Borders -->
+    <SolidColorBrush x:Key="CardBorder" Color="#1E293B"/>
+    <SolidColorBrush x:Key="CardHoverBorder" Color="#334155"/>
+    <SolidColorBrush x:Key="AccentBorder" Color="#0891B2"/>
+    <SolidColorBrush x:Key="DangerBorder" Color="#EF4444"/>
+
+    <!-- Foregrounds -->
+    <SolidColorBrush x:Key="TextPrimary" Color="#F8FAFC"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="#94A3B8"/>
+    <SolidColorBrush x:Key="TextMuted" Color="#64748B"/>
+    
+    <!-- Neon Accents -->
+    <SolidColorBrush x:Key="CyanNeon" Color="#06B6D4"/>
+    <SolidColorBrush x:Key="BlueNeon" Color="#3B82F6"/>
+    <SolidColorBrush x:Key="IndigoNeon" Color="#6366F1"/>
+    <SolidColorBrush x:Key="PurpleNeon" Color="#8B5CF6"/>
+    <SolidColorBrush x:Key="PinkNeon" Color="#EC4899"/>
+    <SolidColorBrush x:Key="EmeraldNeon" Color="#10B981"/>
+    <SolidColorBrush x:Key="AmberNeon" Color="#F59E0B"/>
+    <SolidColorBrush x:Key="RoseNeon" Color="#F43F5E"/>
+    <SolidColorBrush x:Key="RedNeon" Color="#EF4444"/>
+
+    <!-- Gradients -->
+    <LinearGradientBrush x:Key="CpuRadialGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#EC4899" Offset="0.0"/>
+        <GradientStop Color="#8B5CF6" Offset="0.5"/>
+        <GradientStop Color="#06B6D4" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GpuRadialGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#EC4899" Offset="0.0"/>
+        <GradientStop Color="#6366F1" Offset="0.6"/>
+        <GradientStop Color="#3B82F6" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PrimaryButtonGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#0891B2" Offset="0.0"/>
+        <GradientStop Color="#2563EB" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DangerAlertGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#450A0A" Offset="0.0"/>
+        <GradientStop Color="#881337" Offset="0.5"/>
+        <GradientStop Color="#450A0A" Offset="1.0"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>

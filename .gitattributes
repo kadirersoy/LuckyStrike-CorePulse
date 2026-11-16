@@ -1,0 +1,10 @@
+# CorePulse - GitHub Linguist Configuration
+# Ensures the repository is correctly recognized as pure C# (.NET 8)
+
+# Embedded UI assets (WebView2 frontend)
+src/CorePulse.App/wwwroot/* linguist-detectable=false
+*.html linguist-detectable=false
+
+# Build & maintenance scripts
+*.ps1 linguist-detectable=false
+*.py linguist-detectable=false
