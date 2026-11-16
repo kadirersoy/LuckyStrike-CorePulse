@@ -2,7 +2,6 @@ name: CorePulse CI/CD Build Job
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*'
   workflow_dispatch:
