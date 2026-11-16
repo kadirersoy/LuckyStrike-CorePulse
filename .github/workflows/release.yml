@@ -27,7 +27,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install WiX CLI
-        run: dotnet tool install --global wix
+        run: dotnet tool install --global wix --version 5.0.2
 
       - name: Restore Dependencies
         run: dotnet restore CorePulse.sln
