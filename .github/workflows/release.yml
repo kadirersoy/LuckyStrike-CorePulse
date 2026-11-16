@@ -1,0 +1,66 @@
+name: Build & Release CorePulse
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Package CorePulse (x64)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install WiX CLI
+        run: dotnet tool install --global wix
+
+      - name: Restore Dependencies
+        run: dotnet restore CorePulse.sln
+
+      - name: Publish Self-Contained App (win-x64)
+        run: |
+          dotnet publish src/CorePulse.App/CorePulse.App.csproj -c Release -r win-x64 --self-contained -o publish
+
+      - name: Build MSI Installer and Portable ZIP
+        shell: powershell
+        run: |
+          $rawVer = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME.TrimStart('v') } else { "1.0.1" }
+          $wixVer = if ($rawVer -match '^\d+\.\d+\.\d+$') { "$rawVer.0" } else { $rawVer }
+
+          $zipName = "CorePulse_v${rawVer}_Portable.zip"
+          $msiName = "CorePulse_v${rawVer}_Setup.msi"
+
+          # 1. Create Portable ZIP
+          Compress-Archive -Path "publish\*" -DestinationPath $zipName -Force
+          Write-Output "Created $zipName"
+
+          # 2. Build MSI Installer with WiX
+          wix build -arch x64 -d Version="$wixVer" -o $msiName installer\Package.wxs
+          Write-Output "Created $msiName"
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CorePulse ${{ github.ref_name }}
+          files: |
+            CorePulse_*_Portable.zip
+            CorePulse_*_Setup.msi
+          generate_release_notes: true
+          draft: false
+          prerelease: false
